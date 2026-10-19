@@ -3,268 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng 20/10 - Gửi Những Người Bạn Tuyệt Vời</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Mừng Ngày 20/10 - Món Quà Đặc Biệt 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        :root {
+            --primary-color: #ff4757;
+            --secondary-color: #ff6b81;
+            --accent-color: #ffeaa7;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-main: #2f3542;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Quicksand', sans-serif;
         }
+
         body {
-            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f3e5f5);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
             overflow-x: hidden;
+            padding: 20px 15px;
             position: relative;
         }
-        .petal {
-            position: absolute;
-            background: #ff80ab;
-            border-radius: 150% 0 150% 0;
-            animation: fall linear infinite;
-            opacity: 0.8;
-            z-index: 1;
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0.2;
-            }
-        }
-        .container {
-            max-width: 1100px;
-            width: 100%;
-            padding: 40px 20px;
-            z-index: 2;
-            text-align: center;
-        }
-        header h1 {
-            color: #ad1457;
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        header p {
-            color: #880e4f;
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-        }
-        .friends-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        .friend-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px 15px;
-            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid #ff80ab;
-        }
-        .friend-card:hover {
-            transform: translateY(-8px);
-            background: #ffffff;
-            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.25);
-            border-color: #d81b60;
-        }
-        .friend-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #ff4081, #f50057);
+
+        /* Nút bật/tắt nhạc tròn xoay */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
             border-radius: 50%;
-            margin: 0 auto 15px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2rem;
-            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
-        }
-        .friend-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #880e4f;
-            margin-bottom: 5px;
-        }
-        .friend-hint {
-            font-size: 0.9rem;
-            color: #c2185b;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 10;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        .modal-content {
-            background: white;
-            padding: 35px;
-            border-radius: 25px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            animation: modalPop 0.3s ease;
-        }
-        @keyframes modalPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .modal-content h2 {
-            color: #ad1457;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        .modal-content p {
-            color: #4a4a4a;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        .close-btn {
-            background: #d81b60;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-size: 1rem;
             cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
-        .close-btn:hover {
-            background: #ad1457;
+
+        .music-btn.playing {
+            animation: spin 4s linear infinite;
         }
-        footer {
-            z-index: 2;
-            padding: 20px;
-            color: #880e4f;
-            font-size: 0.95rem;
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, #d63031, #e84393);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: #57606f;
             font-weight: 500;
         }
+
+        /* Đồng hồ đếm ngược */
+        .countdown-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 15px;
+            max-width: 450px;
+            margin: 0 auto 35px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        }
+
+        .countdown-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #e84393;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2f3542;
+        }
+
+        .time-box label {
+            font-size: 0.7rem;
+            color: #747d8c;
+        }
+
+        /* Cards lưới 5 người bạn */
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .friend-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .friend-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(232, 67, 147, 0.2);
+            border-color: #ff758c;
+        }
+
+        .friend-avatar {
+            font-size: 3.8rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .friend-card:hover .friend-avatar {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .friend-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #2f3542;
+            margin-bottom: 8px;
+        }
+
+        .friend-card p {
+            font-size: 0.88rem;
+            color: #57606f;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-open {
+            background: linear-gradient(45deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-open:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.5);
+        }
+
+        /* Góc Review Bá Đạo từ Đức Rùa */
+        .review-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-left: 6px solid #e17055;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .review-avatar {
+            font-size: 3rem;
+            background: #ffeaa7;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid #fdcb6e;
+        }
+
+        .review-content h4 {
+            color: #d63031;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .review-content p {
+            font-size: 0.92rem;
+            color: #2d3436;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Modal hiển thị thư chúc */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1; visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+            width: 100%; max-width: 520px;
+            border-radius: 28px;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.7) translateY(50px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border: 2px solid #ffccd5;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute; top: 15px; right: 20px;
+            background: #ffeaa7; border: none;
+            width: 36px; height: 36px; border-radius: 50%;
+            font-size: 1.2rem; cursor: pointer; color: #d63031;
+            font-weight: bold;
+        }
+
+        .modal-icon { font-size: 4.5rem; margin-bottom: 15px; }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; color: #d63031; margin-bottom: 15px;
+        }
+
+        .modal-body {
+            font-size: 1.05rem; color: #485460;
+            line-height: 1.8; margin-bottom: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* Hiệu ứng cánh hoa bay */
+        .petal {
+            position: fixed;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+            opacity: 0.7; z-index: 1; pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0.9; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        footer { text-align: center; color: #636e72; font-size: 0.85rem; margin: 30px 0 10px; }
     </style>
 </head>
 <body>
-    <div id="petals-container"></div>
+
+    <!-- Nhạc nền nhẹ nhàng -->
+    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=sweet-love-115267.mp3"></audio>
+    <div class="music-btn" id="musicToggle" title="Bật/Tắt Nhạc">🎵</div>
+
+    <!-- Cánh hoa rơi -->
+    <div id="petalsContainer"></div>
 
     <div class="container">
         <header>
-            <h1>🌸 Chúc Mừng Ngày 20/10 🌸</h1>
-            <p>Gửi những lời chúc tốt đẹp nhất đến 5 người bạn tuyệt vời!</p>
+            <h1>Chúc Mừng Ngày 20/10 🌸</h1>
+            <p>Gửi tới những bông hoa xinh đẹp nhất khoảnh khắc rạng rỡ và trọn vẹn nhất!</p>
         </header>
 
+        <!-- Đếm ngược 20/10 -->
+        <div class="countdown-container">
+            <div class="countdown-title">✨ Đếm ngược ngày Phụ Nữ Việt Nam ✨</div>
+            <div class="timer" id="timer">
+                <div class="time-box"><span id="days">00</span><label>Ngày</label></div>
+                <div class="time-box"><span id="hours">00</span><label>Giờ</label></div>
+                <div class="time-box"><span id="minutes">00</span><label>Phút</label></div>
+                <div class="time-box"><span id="seconds">00</span><label>Giây</label></div>
+            </div>
+        </div>
+
+        <!-- 5 Cards cho 5 người bạn -->
         <div class="friends-grid" id="friendsGrid"></div>
+
+        <!-- Góc Review của Đức Rùa -->
+        <div class="review-box">
+            <div class="review-avatar">🐢</div>
+            <div class="review-content">
+                <h4>Góc đánh giá "siêu có tâm" từ Đức Rùa xem ké 👑</h4>
+                <p>"Hãy cho tôi feedback! Lời chúc thì chân thành dài dặn thế này chắc chắn mấy bà nhận được sẽ cảm động rơi nước mắt luôn đó nha. Chúc các cô bạn 20/10 luôn tươi xắn, rạng rỡ và nhận trọn vẹn tình cảm ấm áp này nè! Mấy thằng đực rựa thì hãy sống tốt 🎉💖"</p>
+            </div>
+        </div>
+
+        <footer>
+            Made with ❤️ | Happy Vietnamese Women's Day 20/10
+        </footer>
     </div>
 
-    <div class="modal" id="wishModal">
+    <!-- Modal Lời Chúc Chi Tiết -->
+    <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
-            <h2 id="modalName">Tên Bạn</h2>
-            <p id="modalWish">Lời chúc ở đây...</p>
-            <button class="close-btn" onclick="closeModal()">Đóng lại</button>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-icon" id="modalIcon">💐</div>
+            <h2 class="modal-title" id="modalName">Tên Bạn</h2>
+            <div class="modal-body" id="modalWish">Lời chúc chi tiết...</div>
+            <button class="btn-open" onclick="closeModal()">Nhận tình cảm này ✨</button>
         </div>
     </div>
 
-    <footer>
-        Made with ❤️ for 20/10
-    </footer>
-
     <script>
-        // 👉 SỬA TÊN VÀ LỜI CHÚC CHO 5 NGƯỜI BẠN Ở ĐÂY:
+        // 👉 DANH SÁCH 5 NGƯỜI BẠN VÀ LỜI CHÚC DÀI DẶN, Ý NGHĨA
         const friendsData = [
             {
                 name: "Yến Nhi",
                 icon: "💐",
-                wish: "Chúc cậu ngày 20/10 ngập tràn niềm vui, luôn xinh đẹp, cười tươi mỗi ngày và đạt được mọi dự định trong cuộc sống nhé!"
-            },
-            {
-                name: "Ngọc Minh",
-                icon: "🌷",
-                wish: "Chúc cậu luôn rạng rỡ, hạnh phúc, học tập/làm việc thật tốt và gặp thật nhiều may mắn!"
+                desc: "Gửi đến cô bạn luôn rạng rỡ và tràn đầy năng lượng...",
+                wish: "Nhân ngày 20/10, chúc cậu luôn giữ vững nụ cười rạng rỡ và tinh thần tích cực ấy nhé. Mong rằng hành trình phía trước của cậu luôn tràn ngập hoa hồng, ngọt ngào và vạn sự như ý. Hãy luôn tự tin và tỏa sáng theo cách riêng của mình!"
             },
             {
                 name: "Kỳ Hân",
+                icon: "🌷",
+                desc: "Chúc bông hoa xinh đẹp nhất một ngày trọn vẹn...",
+                wish: "Chúc cô bạn xinh xắn của tớ một ngày 20/10 ngập tràn hoa, quà và những lời chúc ngọt ngào nhất. Cảm ơn cậu vì đã luôn mang lại sự dịu dàng và năng lượng ấm áp cho mọi người xung quanh. Chúc cậu mãi hạnh phúc và thành công nhé!"
+            },
+            {
+                name: "Nhật Vi",
                 icon: "🌻",
-                wish: "Cảm ơn cậu vì luôn là người bạn đồng hành tuyệt vời. Chúc cậu 20/10 nhận được thật nhiều hoa, quà và những lời chúc ngọt ngào!"
+                desc: "Gửi người bạn tuyệt vời luôn đồng hành lắng nghe...",
+                wish: "Cảm ơn cậu vì đã luôn là một mảnh ghép tuyệt vời! Chúc cậu ngày 20/10 thật nhiều niềm vui, sự bình yên trong tâm hồn và luôn gặt hái được vô vàn thành công trên con đường mình đã chọn. Chúc cậu luôn yêu đời và bình an!"
             },
             {
                 name: "Bảo Ngân",
                 icon: "🌹",
-                wish: "Chúc cô bạn của tớ mãi giữ được năng lượng tích cực, luôn tươi trẻ và thành công trên con đường mình đã chọn nha!"
+                desc: "Chúc cô gái kiên cường và luôn nỗ lực...",
+                wish: "Mọi sự cố gắng và nỗ lực của cậu chắc chắn sẽ được đền đáp bằng những điều ngọt ngào nhất. Ngày 20/10 chúc cậu luôn được chiều chuộng, yêu thương, mệt mỏi sẽ tự tan biến và niềm vui sẽ luôn ngập tràn mỗi ngày!"
             },
             {
-                name: "Nhật Vi",
+                name: "Ngọc Minh",
                 icon: "🌸",
-                wish: "Chúc ngày 20/10 thật ý nghĩa và trọn vẹn đến cậu. Mong mọi điều tốt đẹp nhất sẽ đến với cậu!"
+                desc: "Chúc ước mơ của cậu sớm vươn cao vươn xa...",
+                wish: "Chúc cậu ngày 20/10 thật nhiều bất ngờ và hạnh phúc! Mong rằng cuộc sống sẽ luôn dịu dàng với cậu, mang đến cho cậu những cơ hội tuyệt vời và những người bạn chân thành luôn sẵn sàng ở bên."
             }
         ];
 
+        // Render giao diện
         const grid = document.getElementById('friendsGrid');
-        const modal = document.getElementById('wishModal');
-        const modalName = document.getElementById('modalName');
-        const modalWish = document.getElementById('modalWish');
-
-        friendsData.forEach((friend) => {
-            const card = document.createElement('div');
-            card.className = 'friend-card';
-            card.innerHTML = `
-                <div class="friend-avatar">${friend.icon}</div>
-                <div class="friend-name">${friend.name}</div>
-                <div class="friend-hint">Nhấn để xem lời chúc 💌</div>
+        friendsData.forEach((friend, i) => {
+            grid.innerHTML += `
+                <div class="friend-card">
+                    <div class="friend-avatar">${friend.icon}</div>
+                    <h3>${friend.name}</h3>
+                    <p>${friend.desc}</p>
+                    <button class="btn-open" onclick="openModal(${i})">Mở thiệp mừng 💌</button>
+                </div>
             `;
-            card.onclick = () => openModal(friend);
-            grid.appendChild(card);
         });
 
-        function openModal(friend) {
-            modalName.innerText = friend.name;
-            modalWish.innerText = friend.wish;
-            modal.style.display = 'flex';
+        // Tự động đếm ngược đến 20/10
+        function updateCountdown() {
+            const now = new Date();
+            let targetYear = now.getFullYear();
+            let targetDate = new Date(`October 20, ${targetYear} 00:00:00`);
+            
+            if (now > targetDate && now.getDate() !== 20) {
+                targetDate = new Date(`October 20, ${targetYear + 1} 00:00:00`);
+            }
+
+            const diff = targetDate - now;
+            if (diff <= 0 && now.getDate() === 20) {
+                document.querySelector('.countdown-title').innerText = "🎉 CHÚC MỪNG NGÀY 20/10! 🎉";
+                document.getElementById('timer').style.display = 'none';
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / 1000 / 60) % 60);
+            const s = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Xử lý Modal & Bắn pháo hoa
+        function openModal(index) {
+            const friend = friendsData[index];
+            document.getElementById('modalIcon').innerText = friend.icon;
+            document.getElementById('modalName').innerText = friend.name;
+            document.getElementById('modalWish').innerText = friend.wish;
+            document.getElementById('modalOverlay').classList.add('active');
+
+            // Pháo hoa trái tim lấp lánh khi mở thiệp
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4757', '#ff6b81', '#ffeaa7']
+            });
         }
 
         function closeModal() {
-            modal.style.display = 'none';
+            document.getElementById('modalOverlay').classList.remove('active');
         }
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
+        // Bật/Tắt Nhạc Nền
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicToggle');
+        musicBtn.onclick = () => {
+            if (music.paused) {
+                music.play();
+                musicBtn.classList.add('playing');
+            } else {
+                music.pause();
+                musicBtn.classList.remove('playing');
+            }
+        };
+
+        // Tạo hiệu ứng cánh hoa rơi
+        function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            for (let i = 0; i < 25; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                const size = Math.random() * 12 + 8;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.4}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.animationDuration = `${Math.random() * 4 + 6}s`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(petal);
             }
         }
-
-        const petalsContainer = document.getElementById('petals-container');
-        for (let i = 0; i < 20; i++) {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.top = -Math.random() * 20 - 10 + 'vh';
-            const size = Math.random() * 10 + 10;
-            petal.style.width = size + 'px';
-            petal.style.height = size * 1.5 + 'px';
-            petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            petal.style.animationDelay = (Math.random() * 5) + 's';
-            petalsContainer.appendChild(petal);
-        }
+        createPetals();
     </script>
 </body>
 </html>
