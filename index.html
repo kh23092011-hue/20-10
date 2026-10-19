@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 20/10 - Gửi Những Người Bạn Tuyệt Vời</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0, #f3e5f5);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .petal {
+            position: absolute;
+            background: #ff80ab;
+            border-radius: 150% 0 150% 0;
+            animation: fall linear infinite;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            padding: 40px 20px;
+            z-index: 2;
+            text-align: center;
+        }
+        header h1 {
+            color: #ad1457;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        header p {
+            color: #880e4f;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .friend-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 15px;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #ff80ab;
+        }
+        .friend-card:hover {
+            transform: translateY(-8px);
+            background: #ffffff;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.25);
+            border-color: #d81b60;
+        }
+        .friend-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff4081, #f50057);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
+        }
+        .friend-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #880e4f;
+            margin-bottom: 5px;
+        }
+        .friend-hint {
+            font-size: 0.9rem;
+            color: #c2185b;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: modalPop 0.3s ease;
+        }
+        @keyframes modalPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal-content h2 {
+            color: #ad1457;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .modal-content p {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .close-btn {
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .close-btn:hover {
+            background: #ad1457;
+        }
+        footer {
+            z-index: 2;
+            padding: 20px;
+            color: #880e4f;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div id="petals-container"></div>
+
+    <div class="container">
+        <header>
+            <h1>🌸 Chúc Mừng Ngày 20/10 🌸</h1>
+            <p>Gửi những lời chúc tốt đẹp nhất đến 5 người bạn tuyệt vời!</p>
+        </header>
+
+        <div class="friends-grid" id="friendsGrid"></div>
+    </div>
+
+    <div class="modal" id="wishModal">
+        <div class="modal-content">
+            <h2 id="modalName">Tên Bạn</h2>
+            <p id="modalWish">Lời chúc ở đây...</p>
+            <button class="close-btn" onclick="closeModal()">Đóng lại</button>
+        </div>
+    </div>
+
+    <footer>
+        Made with ❤️ for 20/10
+    </footer>
+
+    <script>
+        // 👉 SỬA TÊN VÀ LỜI CHÚC CHO 5 NGƯỜI BẠN Ở ĐÂY:
+        const friendsData = [
+            {
+                name: "Yến Nhi",
+                icon: "💐",
+                wish: "Chúc cậu ngày 20/10 ngập tràn niềm vui, luôn xinh đẹp, cười tươi mỗi ngày và đạt được mọi dự định trong cuộc sống nhé!"
+            },
+            {
+                name: "Ngọc Minh",
+                icon: "🌷",
+                wish: "Chúc cậu luôn rạng rỡ, hạnh phúc, học tập/làm việc thật tốt và gặp thật nhiều may mắn!"
+            },
+            {
+                name: "Kỳ Hân",
+                icon: "🌻",
+                wish: "Cảm ơn cậu vì luôn là người bạn đồng hành tuyệt vời. Chúc cậu 20/10 nhận được thật nhiều hoa, quà và những lời chúc ngọt ngào!"
+            },
+            {
+                name: "Bảo Ngân",
+                icon: "🌹",
+                wish: "Chúc cô bạn của tớ mãi giữ được năng lượng tích cực, luôn tươi trẻ và thành công trên con đường mình đã chọn nha!"
+            },
+            {
+                name: "Nhật Vi",
+                icon: "🌸",
+                wish: "Chúc ngày 20/10 thật ý nghĩa và trọn vẹn đến cậu. Mong mọi điều tốt đẹp nhất sẽ đến với cậu!"
+            }
+        ];
+
+        const grid = document.getElementById('friendsGrid');
+        const modal = document.getElementById('wishModal');
+        const modalName = document.getElementById('modalName');
+        const modalWish = document.getElementById('modalWish');
+
+        friendsData.forEach((friend) => {
+            const card = document.createElement('div');
+            card.className = 'friend-card';
+            card.innerHTML = `
+                <div class="friend-avatar">${friend.icon}</div>
+                <div class="friend-name">${friend.name}</div>
+                <div class="friend-hint">Nhấn để xem lời chúc 💌</div>
+            `;
+            card.onclick = () => openModal(friend);
+            grid.appendChild(card);
+        });
+
+        function openModal(friend) {
+            modalName.innerText = friend.name;
+            modalWish.innerText = friend.wish;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        const petalsContainer = document.getElementById('petals-container');
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = -Math.random() * 20 - 10 + 'vh';
+            const size = Math.random() * 10 + 10;
+            petal.style.width = size + 'px';
+            petal.style.height = size * 1.5 + 'px';
+            petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            petal.style.animationDelay = (Math.random() * 5) + 's';
+            petalsContainer.appendChild(petal);
+        }
+    </script>
+</body>
+</html>
